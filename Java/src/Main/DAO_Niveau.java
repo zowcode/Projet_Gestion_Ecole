@@ -9,26 +9,25 @@ package Main;
  *
  * @author arnau
  */
-public class DAO_Personne extends DAO<Personne>{
-
+public class DAO_Niveau extends DAO<Niveau>{
+    
     @Override
-    public boolean create(Personne obj) {
+    public boolean create(Niveau obj) {
         return false;
     }
 
     @Override
-    public boolean delete(Personne obj) {
+    public boolean delete(Niveau obj) {
         return false;
     }
 
     @Override
-    public boolean update(Personne obj) {
+    public boolean update(Niveau obj) {
          return false;
     }
 
     @Override
-    public Personne find(int id) {
-        
+    public Niveau find(int id) {
+        return null;
     }
-    
 }

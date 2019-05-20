@@ -7,10 +7,8 @@ package Main;
 
 /**
  *
- * @author arnaud
+ * @author arnau
  */
-public class Inscription {
+public class Annee {
     private int id;
-    private Eleve eleve;
-    private Classe classe;
 }

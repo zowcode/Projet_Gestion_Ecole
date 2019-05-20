@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 20 mai 2019 à 16:04
+-- Généré le :  lun. 20 mai 2019 à 18:13
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `école`
+-- Base de données :  `ecole`
 --
 
 -- --------------------------------------------------------
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `classe` (
   `id` int(50) NOT NULL,
   `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `id_niveau` int(11) NOT NULL,
-  `id_` int(11) NOT NULL,
+  `id_annee` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -90,6 +90,34 @@ CREATE TABLE IF NOT EXISTS `discipline` (
   `nom` varchar(30) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `eleve`
+--
+
+DROP TABLE IF EXISTS `eleve`;
+CREATE TABLE IF NOT EXISTS `eleve` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `prenom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `enseignant`
+--
+
+DROP TABLE IF EXISTS `enseignant`;
+CREATE TABLE IF NOT EXISTS `enseignant` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `prenom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -151,20 +179,6 @@ CREATE TABLE IF NOT EXISTS `niveau` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `personne`
---
-
-DROP TABLE IF EXISTS `personne`;
-CREATE TABLE IF NOT EXISTS `personne` (
-  `id` int(50) NOT NULL,
-  `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `prenom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `type` set('Eleve','Enseignant') COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `trimestre`
 --
 
@@ -176,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `trimestre` (
   `fin` int(11) NOT NULL,
   `id_annee` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
