@@ -5,15 +5,41 @@
  */
 package Main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author arnau
  */
 public class DAO_Classe extends DAO<Classe>{
     
+    
+    public DAO_Classe(Connection conn) {
+        super(conn);
+    }
+     
     @Override
     public boolean create(Classe obj) {
-        return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO classe (id,nom,id_niveau,id_annee) VALUES(?,?,?,?)"
+                    );
+            statement.setObject(1,obj.getId(), Types.INTEGER); 
+            statement.setObject(2,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(3,obj.getNiveau().getId(),Types.INTEGER);
+            statement.setObject(4,obj.getAnnee().getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Classe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //en spécifiant bien les types SQL cibles 
+        
+        return true;
     }
 
     @Override

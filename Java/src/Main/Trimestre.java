@@ -15,4 +15,26 @@ public class Trimestre {
     private int debut;
     private int fin;
     private Annee annee;
+
+    public int getId() {
+        return id;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int getDebut() {
+        return debut;
+    }
+
+    public int getFin() {
+        return fin;
+    }
+
+    public Annee getAnnee() {
+        return annee;
+    }
+    
+    
 }

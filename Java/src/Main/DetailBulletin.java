@@ -13,4 +13,18 @@ public class DetailBulletin {
     private int id;
     private Bulletin bulletin;
     private Enseignant enseignant;
+
+    public int getId() {
+        return id;
+    }
+
+    public Bulletin getBulletin() {
+        return bulletin;
+    }
+
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+    
+    
 }

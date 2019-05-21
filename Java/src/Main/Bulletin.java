@@ -14,4 +14,22 @@ public class Bulletin {
     private String appreciation;
     private Inscription inscription;
     private Trimestre trimestre;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAppreciation() {
+        return appreciation;
+    }
+
+    public Inscription getInscription() {
+        return inscription;
+    }
+
+    public Trimestre getTrimestre() {
+        return trimestre;
+    }
+    
+    
 }

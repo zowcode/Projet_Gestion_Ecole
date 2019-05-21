@@ -14,4 +14,22 @@ public class Enseignement {
     private Classe classe;
     private Enseignant enseignant;
     private Discipline discipline;
+
+    public int getId() {
+        return id;
+    }
+
+    public Classe getClasse() {
+        return classe;
+    }
+
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    public Discipline getDiscipline() {
+        return discipline;
+    }
+    
+    
 }

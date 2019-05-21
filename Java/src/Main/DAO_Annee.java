@@ -5,15 +5,34 @@
  */
 package Main;
 
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author arnau
  */
 public class DAO_Annee extends DAO<Annee>{
       
+    public DAO_Annee(Connection conn) {
+        super(conn);
+    }
+    
     @Override
     public boolean create(Annee obj) {
-        return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO anneescolaire (id) VALUES(?)"
+                    );
+            statement.setObject(1,obj.getId(), Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //en spécifiant bien les types SQL cibles 
+        
+        return true;
     }
 
     @Override

@@ -14,4 +14,22 @@ public class Classe {
     private String nom;
     private Niveau niveau;
     private Annee annee;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public Annee getAnnee() {
+        return annee;
+    }
+    
+    
 }

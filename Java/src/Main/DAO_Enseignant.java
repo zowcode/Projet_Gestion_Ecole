@@ -5,6 +5,13 @@
  */
 package Main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author arnau
@@ -12,9 +19,26 @@ package Main;
 public class DAO_Enseignant extends DAO<Enseignant>   
 {
 
+    public DAO_Enseignant(Connection conn) {
+        super(conn);
+    }
+    
     @Override
     public boolean create(Enseignant obj) {
-        return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO enseignant (id,nom,prenom) VALUES(?,?,?)"
+                    );
+            statement.setObject(1,obj.getId(), Types.INTEGER); 
+            statement.setObject(2,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(3,obj.getPrenom(),Types.VARCHAR);
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Enseignant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //en spécifiant bien les types SQL cibles 
+        
+        return true;
     }
 
     @Override

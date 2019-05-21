@@ -11,4 +11,10 @@ package Main;
  */
 public class Annee {
     private int id;
+
+    public int getId() {
+        return id;
+    }
+    
+    
 }

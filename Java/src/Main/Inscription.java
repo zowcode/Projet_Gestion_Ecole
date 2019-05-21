@@ -13,4 +13,18 @@ public class Inscription {
     private int id;
     private Eleve eleve;
     private Classe classe;
+
+    public int getId() {
+        return id;
+    }
+
+    public Eleve getEleve() {
+        return eleve;
+    }
+
+    public Classe getClasse() {
+        return classe;
+    }
+    
+    
 }

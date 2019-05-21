@@ -12,4 +12,14 @@ package Main;
 public class Discipline {
     private int id;
     private String nom;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+    
+    
 }

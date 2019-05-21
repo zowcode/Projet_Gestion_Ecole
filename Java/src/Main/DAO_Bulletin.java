@@ -5,15 +5,40 @@
  */
 package Main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author arnau
  */
 public class DAO_Bulletin extends DAO<Bulletin> {
     
+    public DAO_Bulletin(Connection conn) {
+        super(conn);
+    }
+    
     @Override
     public boolean create(Bulletin obj) {
-        return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO bulletin (id,appreciation,id_inscription,id_trimestre) VALUES(?,?,?,?)"
+                    );
+            statement.setObject(1,obj.getId(), Types.INTEGER); 
+            statement.setObject(2,obj.getAppreciation(),Types.VARCHAR); 
+            statement.setObject(3,obj.getInscription().getId(),Types.INTEGER);
+            statement.setObject(4,obj.getTrimestre().getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Bulletin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //en spécifiant bien les types SQL cibles 
+        
+        return true;
     }
 
     @Override

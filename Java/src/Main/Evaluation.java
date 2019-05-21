@@ -14,4 +14,22 @@ public class Evaluation {
     private int note;
     private String appreciation;
     private DetailBulletin detail_bulletin;
+
+    public int getId() {
+        return id;
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public String getAppreciation() {
+        return appreciation;
+    }
+
+    public DetailBulletin getDetail_bulletin() {
+        return detail_bulletin;
+    }
+    
+    
 }
