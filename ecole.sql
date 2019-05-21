@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 20 mai 2019 à 18:13
+-- Généré le :  mar. 21 mai 2019 à 18:00
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `anneescolaire` (
 
 DROP TABLE IF EXISTS `bulletin`;
 CREATE TABLE IF NOT EXISTS `bulletin` (
-  `id` int(50) NOT NULL,
+  `id` int(50) NOT NULL AUTO_INCREMENT,
   `appreciation` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `id_inscription` int(50) NOT NULL,
   `id_trimestre` int(11) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
 
 DROP TABLE IF EXISTS `classe`;
 CREATE TABLE IF NOT EXISTS `classe` (
-  `id` int(50) NOT NULL,
+  `id` int(50) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `id_niveau` int(11) NOT NULL,
   `id_annee` int(11) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `classe` (
 
 DROP TABLE IF EXISTS `detailbulletin`;
 CREATE TABLE IF NOT EXISTS `detailbulletin` (
-  `id` int(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `id_bulletin` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `id_enseignant` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `detailbulletin` (
 
 DROP TABLE IF EXISTS `discipline`;
 CREATE TABLE IF NOT EXISTS `discipline` (
-  `id` int(15) NOT NULL,
+  `id` int(15) NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `discipline` (
 
 DROP TABLE IF EXISTS `eleve`;
 CREATE TABLE IF NOT EXISTS `eleve` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `prenom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `eleve` (
 
 DROP TABLE IF EXISTS `enseignant`;
 CREATE TABLE IF NOT EXISTS `enseignant` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `prenom` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `enseignant` (
 
 DROP TABLE IF EXISTS `enseignement`;
 CREATE TABLE IF NOT EXISTS `enseignement` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_classe` int(11) NOT NULL,
   `id_enseignant` int(11) NOT NULL,
   `id_discipline` int(11) NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `enseignement` (
 
 DROP TABLE IF EXISTS `evaluation`;
 CREATE TABLE IF NOT EXISTS `evaluation` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `note` int(11) NOT NULL,
   `appreciation` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `id_detail_bulletin` int(11) NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
 
 DROP TABLE IF EXISTS `inscription`;
 CREATE TABLE IF NOT EXISTS `inscription` (
-  `id` int(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `id_eleve` int(20) NOT NULL,
   `id_classe` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `inscription` (
 
 DROP TABLE IF EXISTS `niveau`;
 CREATE TABLE IF NOT EXISTS `niveau` (
-  `id` int(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `nom` set('ING1','ING2','ING3','ING4','ING5') COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `niveau` (
 
 DROP TABLE IF EXISTS `trimestre`;
 CREATE TABLE IF NOT EXISTS `trimestre` (
-  `id` int(50) NOT NULL,
+  `id` int(50) NOT NULL AUTO_INCREMENT,
   `numero` int(50) NOT NULL,
   `debut` int(11) NOT NULL,
   `fin` int(11) NOT NULL,

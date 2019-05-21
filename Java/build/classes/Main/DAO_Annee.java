@@ -5,10 +5,7 @@
  */
 package Main;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,22 +13,22 @@ import java.util.logging.Logger;
  *
  * @author arnau
  */
-public class DAO_Niveau extends DAO<Niveau>{
-    
-    public DAO_Niveau(Connection conn) {
+public class DAO_Annee extends DAO<Annee>{
+      
+    public DAO_Annee(Connection conn) {
         super(conn);
     }
     
     @Override
-    public boolean create(Niveau obj) {
+    public boolean create(Annee obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO niveau (nom) VALUES(?)"
+                    "INSERT INTO anneescolaire (id) VALUES(?)"
                     );
-            statement.setObject(1,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(1,obj.getId(), Types.INTEGER); 
             statement.executeUpdate(); 
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Niveau.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
         }
         //en spécifiant bien les types SQL cibles 
         
@@ -39,17 +36,17 @@ public class DAO_Niveau extends DAO<Niveau>{
     }
 
     @Override
-    public boolean delete(Niveau obj) {
+    public boolean delete(Annee obj) {
         return false;
     }
 
     @Override
-    public boolean update(Niveau obj) {
+    public boolean update(Annee obj) {
          return false;
     }
 
     @Override
-    public Niveau find(int id) {
+    public Annee find(int id) {
         return null;
     }
 }
