@@ -64,7 +64,23 @@ public class DAO_Trimestre extends DAO<Trimestre>{
 
     @Override
     public Trimestre find(int id) {
-        return null;
+        Trimestre e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM trimestre WHERE trimestre.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Trimestre(rs.getInt("id"),rs.getInt("numero"),rs.getInt("debut"),rs.getInt("fin"));
+                DAO_Annee anDAO = new DAO_Annee(this.connect);
+                e.setAnnee(anDAO.find(rs.getInt("id_annee")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Trimestre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

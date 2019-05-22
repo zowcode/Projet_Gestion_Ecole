@@ -62,7 +62,25 @@ public class DAO_Bulletin extends DAO<Bulletin> {
 
     @Override
     public Bulletin find(int id) {
-        return null;
+        Bulletin e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM bulletin WHERE bulletin.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Bulletin(rs.getInt("id"),rs.getString("appreciation"));
+                DAO_Inscription inscriDAO = new DAO_Inscription(this.connect);
+                DAO_Trimestre trimDAO = new DAO_Trimestre(this.connect);
+                e.setInscription(inscriDAO.find(rs.getInt("id_inscription")));
+                e.setTrimestre(trimDAO.find(rs.getInt("id_trimestre")));                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Bulletin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

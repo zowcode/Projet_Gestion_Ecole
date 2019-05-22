@@ -60,7 +60,21 @@ public class DAO_Niveau extends DAO<Niveau>{
 
     @Override
     public Niveau find(int id) {
-        return null;
+        Niveau e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM niveau WHERE niveau.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Niveau(rs.getInt("id"),rs.getString("nom"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

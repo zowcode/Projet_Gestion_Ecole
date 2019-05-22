@@ -27,11 +27,12 @@ public class DAO_Evaluation extends DAO<Evaluation>{
     public boolean create(Evaluation obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO evaluation (note,appreciation,id_detail_bulletin) VALUES(?,?,?)"
+                    "INSERT INTO evaluation (note,appreciation,id_bulletin,id_enseignant) VALUES(?,?,?,?)"
                     );
             statement.setObject(1,obj.getNote(),Types.INTEGER); 
             statement.setObject(2,obj.getAppreciation(),Types.VARCHAR);
-            statement.setObject(3,obj.getDetail_bulletin().getId(),Types.INTEGER); 
+            statement.setObject(3,obj.getBulletin().getId(),Types.INTEGER); 
+            statement.setObject(4,obj.getEnseignant().getId(),Types.INTEGER); 
             statement.executeUpdate(); 
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Evaluation.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,7 +63,25 @@ public class DAO_Evaluation extends DAO<Evaluation>{
 
     @Override
     public Evaluation find(int id) {
-        return null;
+        Evaluation e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM evalation WHERE evaluation.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Evaluation(rs.getInt("id"),rs.getInt("note"),rs.getString("appreciation"));
+                DAO_Bulletin buDAO = new DAO_Bulletin(this.connect);
+                DAO_Enseignant enDAO = new DAO_Enseignant(this.connect);
+                e.setBulletin(buDAO.find(rs.getInt("id_bulletin")));
+                e.setEnseignant(enDAO.find(rs.getInt("id_enseignant")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Evaluation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

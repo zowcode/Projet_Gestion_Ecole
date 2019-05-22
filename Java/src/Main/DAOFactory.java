@@ -66,14 +66,6 @@ public class DAOFactory {
   }
   
   /**
-  * Retourne un objet DetailBulletin interagissant avec la BDD
-  * @return DAO
-  */
-  public static DAO getDAO_DetailBulletin(){
-    return new DAO_DetailBulletin(conn);
-  }
-  
-  /**
   * Retourne un objet Discipline interagissant avec la BDD
   * @return DAO
   */

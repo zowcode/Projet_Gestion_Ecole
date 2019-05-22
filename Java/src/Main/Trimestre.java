@@ -24,6 +24,22 @@ public class Trimestre {
         this.annee = annee;
     }
 
+    public Trimestre(int id, int numero, int debut, int fin) {
+        this.id = id;
+        this.numero = numero;
+        this.debut = debut;
+        this.fin = fin;
+    }
+
+    public Trimestre(int numero, int debut, int fin, Annee annee) {
+        this.numero = numero;
+        this.debut = debut;
+        this.fin = fin;
+        this.annee = annee;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
@@ -42,6 +58,10 @@ public class Trimestre {
 
     public Annee getAnnee() {
         return annee;
+    }
+
+    public void setAnnee(Annee annee) {
+        this.annee = annee;
     }
     
     

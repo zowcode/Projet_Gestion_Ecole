@@ -62,7 +62,27 @@ public class DAO_Enseignement extends DAO<Enseignement>{
 
     @Override
     public Enseignement find(int id) {
-        return null;
+        Enseignement e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM enseignement WHERE enseignement.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Enseignement(rs.getInt("id"));
+                DAO_Classe classDAO = new DAO_Classe(this.connect);
+                DAO_Enseignant enDAO = new DAO_Enseignant(this.connect);
+                DAO_Discipline disDAO = new DAO_Discipline(this.connect);
+                e.setClasse(classDAO.find(rs.getInt("id_classe")));
+                e.setEnseignant(enDAO.find(rs.getInt("id_enseignant")));
+                e.setDiscipline(disDAO.find(rs.getInt("id_discipline")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Enseignement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

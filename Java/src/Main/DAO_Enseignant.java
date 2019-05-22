@@ -62,7 +62,21 @@ public class DAO_Enseignant extends DAO<Enseignant>
 
     @Override
     public Enseignant find(int id) {
-        return null;
+        Enseignant e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM enseignant WHERE enseignant.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Enseignant(rs.getInt("id"),rs.getString("nom"),rs.getString("prenom"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Enseignant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

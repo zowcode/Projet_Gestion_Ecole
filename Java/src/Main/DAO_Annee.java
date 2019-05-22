@@ -56,7 +56,21 @@ public class DAO_Annee extends DAO<Annee>{
 
     @Override
     public Annee find(int id) {
-        return null;
+        Annee e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM anneescolaire WHERE anneescolaire.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Annee(rs.getInt("id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

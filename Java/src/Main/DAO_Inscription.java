@@ -61,7 +61,25 @@ public class DAO_Inscription extends DAO<Inscription>{
 
     @Override
     public Inscription find(int id) {
-        return null;
+        Inscription e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM inscription WHERE inscription.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Inscription(rs.getInt("id"));
+                DAO_Eleve elevDAO = new DAO_Eleve(this.connect);
+                DAO_Classe classDAO = new DAO_Classe(this.connect);
+                e.setEleve(elevDAO.find(rs.getInt("id_eleve")));
+                e.setClasse(classDAO.find(rs.getInt("id_classe")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Inscription.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

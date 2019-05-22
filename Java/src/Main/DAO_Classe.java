@@ -63,7 +63,25 @@ public class DAO_Classe extends DAO<Classe>{
 
     @Override
     public Classe find(int id) {
-        return null;
+        Classe e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM classe WHERE classe.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Classe(rs.getInt("id"),rs.getString("appreciation"));
+                DAO_Niveau nivDAO = new DAO_Niveau(this.connect);
+                DAO_Annee anDAO = new DAO_Annee(this.connect);
+                e.setNiveau(nivDAO.find(rs.getInt("id_niveau")));
+                e.setAnnee(anDAO.find(rs.getInt("id_annee")));                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Classe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

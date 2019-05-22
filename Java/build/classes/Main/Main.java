@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author arnaud
@@ -13,11 +15,18 @@ public class Main {
         DAOFactory factory = new DAOFactory();
         
         //tests
-        DAO<Eleve> eleve = factory.getDAO_Eleve();
-        Eleve moi = new Eleve(eleve.getMaxId()+1,"Arnaud","Emprin");
-        eleve.create(moi);
+        ArrayList<Eleve> studs = new ArrayList();
         
-
+        DAO<Eleve> eleve = factory.getDAO_Eleve();
+        for(int i =1;i<eleve.getMaxId()+1;i++)
+        {
+            studs.add(eleve.find(i));
+        }
+        
+        for(Eleve e : studs)
+        {
+            System.out.println(e.getPrenom());
+        }
     }
     
 }

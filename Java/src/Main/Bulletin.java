@@ -21,6 +21,13 @@ public class Bulletin {
         this.inscription = inscription;
         this.trimestre = trimestre;
     }
+
+    public Bulletin(int id, String appreciation) {
+        this.id = id;
+        this.appreciation = appreciation;
+    }
+    
+    
     
     public int getId() {
         return id;
@@ -37,6 +44,16 @@ public class Bulletin {
     public Trimestre getTrimestre() {
         return trimestre;
     }
+
+    public void setInscription(Inscription inscription) {
+        this.inscription = inscription;
+    }
+
+    public void setTrimestre(Trimestre trimestre) {
+        this.trimestre = trimestre;
+    }
+
+
     
     
 }

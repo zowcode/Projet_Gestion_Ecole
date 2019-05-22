@@ -62,7 +62,21 @@ public class DAO_Eleve extends DAO<Eleve>{
 
     @Override
     public Eleve find(int id) {
-        return null;
+        Eleve e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM eleve WHERE eleve.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Eleve(rs.getInt("id"),rs.getString("nom"),rs.getString("prenom"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Eleve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
     @Override

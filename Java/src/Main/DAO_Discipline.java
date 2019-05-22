@@ -60,7 +60,21 @@ public class DAO_Discipline extends DAO<Discipline>{
 
     @Override
     public Discipline find(int id) {
-        return null;
+        Discipline e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM discipline WHERE discipline.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Discipline(rs.getInt("id"),rs.getString("nom"));               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override
