@@ -37,7 +37,16 @@ public class DAO_Annee extends DAO<Annee>{
 
     @Override
     public boolean delete(Annee obj) {
-        return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "DELETE FROM anneescolaire WHERE anneescolaire.id="+obj.getId()
+                    );
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 
     @Override
@@ -48,5 +57,23 @@ public class DAO_Annee extends DAO<Annee>{
     @Override
     public Annee find(int id) {
         return null;
+    }
+    
+        @Override
+    public int getMaxId(){
+        int max_id = 0;
+        try {
+             ResultSet result = this.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT MAX(id) FROM anneescolaire");
+             if(result.first())
+             {
+                 max_id = result.getInt("MAX(id)");
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return max_id;
     }
 }

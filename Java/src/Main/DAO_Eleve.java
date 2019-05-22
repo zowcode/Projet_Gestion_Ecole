@@ -7,6 +7,7 @@ package Main;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.logging.Level;
@@ -41,7 +42,17 @@ public class DAO_Eleve extends DAO<Eleve>{
 
     @Override
     public boolean delete(Eleve obj) {
-        return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "DELETE FROM eleve WHERE eleve.id="+obj.getId()
+                    );
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Eleve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //en spécifiant bien les types SQL cibles 
+        
+        return true;
     }
 
     @Override
@@ -52,6 +63,24 @@ public class DAO_Eleve extends DAO<Eleve>{
     @Override
     public Eleve find(int id) {
         return null;
+    }
+    
+    @Override
+    public int getMaxId(){
+        int max_id = 0;
+        try {
+             ResultSet result = this.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT MAX(id) FROM eleve");
+             if(result.first())
+             {
+                 max_id = result.getInt("MAX(id)");
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Eleve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return max_id;
     }
     
 }

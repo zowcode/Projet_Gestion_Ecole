@@ -14,8 +14,10 @@ public class Main {
         
         //tests
         DAO<Eleve> eleve = factory.getDAO_Eleve();
-        eleve.create(new Eleve("Arnaud","Emprin"));
+        Eleve moi = new Eleve(eleve.getMaxId()+1,"Arnaud","Emprin");
+        eleve.create(moi);
         
+
     }
     
 }
