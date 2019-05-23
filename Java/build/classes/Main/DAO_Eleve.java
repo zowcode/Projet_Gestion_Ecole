@@ -49,15 +49,26 @@ public class DAO_Eleve extends DAO<Eleve>{
             statement.executeUpdate(); 
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Eleve.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //en spécifiant bien les types SQL cibles 
+        } 
         
         return true;
     }
 
     @Override
     public boolean update(Eleve obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE eleve SET nom=?, prenom=? WHERE eleve.id=?"
+                    );
+            statement.setObject(1,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(2,obj.getPrenom(),Types.VARCHAR);
+            statement.setObject(3,obj.getId(),Types.INTEGER);
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Eleve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 
     @Override
@@ -70,12 +81,11 @@ public class DAO_Eleve extends DAO<Eleve>{
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                e = new Eleve(rs.getInt("id"),rs.getString("prenom"),rs.getString("nom"));
+                e = new Eleve(rs.getInt("id"),rs.getString("nom"),rs.getString("prenom"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Eleve.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //en spécifiant bien les types SQL cibles 
         
         return e;
     }

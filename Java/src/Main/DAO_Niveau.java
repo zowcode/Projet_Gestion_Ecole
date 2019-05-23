@@ -55,7 +55,18 @@ public class DAO_Niveau extends DAO<Niveau>{
 
     @Override
     public boolean update(Niveau obj) {
-         return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE niveau SET nom=? WHERE niveau.id=?"
+                    );
+            statement.setObject(1,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(2,obj.getNom(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 
     @Override

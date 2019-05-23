@@ -57,7 +57,20 @@ public class DAO_Enseignement extends DAO<Enseignement>{
 
     @Override
     public boolean update(Enseignement obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE enseignement SET id_classe=?,id_enseignant=?,id_discipline=? WHERE enseignement.id=?"
+                    );
+            statement.setObject(1,obj.getClasse().getId(),Types.INTEGER); 
+            statement.setObject(2,obj.getEnseignant().getId(),Types.INTEGER);
+            statement.setObject(3,obj.getDiscipline().getId(),Types.INTEGER); 
+            statement.setObject(4,obj.getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Enseignement.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        return true;
     }
 
     @Override

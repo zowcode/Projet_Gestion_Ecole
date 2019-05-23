@@ -13,13 +13,21 @@ public class Evaluation {
     private int id;
     private int note;
     private String appreciation;
-    private DetailBulletin detail_bulletin;
+    private Bulletin bulletin;
+    private Enseignant enseignant;
 
-    public Evaluation(int id, int note, String appreciation, DetailBulletin detail_bulletin) {
+    public Evaluation(int id, int note, String appreciation, Bulletin bulletin,Enseignant enseignant) {
         this.id = id;
         this.note = note;
         this.appreciation = appreciation;
-        this.detail_bulletin = detail_bulletin;
+        this.bulletin = bulletin;
+        this.enseignant = enseignant;
+    }
+
+    public Evaluation(int id, int note,String appreciation) {
+        this.id = id;
+        this.note = note;
+        this.appreciation = appreciation;
     }
     
     
@@ -36,9 +44,23 @@ public class Evaluation {
         return appreciation;
     }
 
-    public DetailBulletin getDetail_bulletin() {
-        return detail_bulletin;
+    public Bulletin getBulletin() {
+        return bulletin;
     }
+
+    public void setBulletin(Bulletin bulletin) {
+        this.bulletin = bulletin;
+    }
+
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
+    
+    
     
     
 }

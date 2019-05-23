@@ -19,6 +19,10 @@ public class Inscription {
         this.eleve = eleve;
         this.classe = classe;
     }
+
+    public Inscription(int id) {
+        this.id = id;
+    }
     
     
 
@@ -32,6 +36,14 @@ public class Inscription {
 
     public Classe getClasse() {
         return classe;
+    }
+
+    public void setEleve(Eleve eleve) {
+        this.eleve = eleve;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
     }
     
     

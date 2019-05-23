@@ -55,12 +55,37 @@ public class DAO_Discipline extends DAO<Discipline>{
 
     @Override
     public boolean update(Discipline obj) {
-         return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE discipline SET nom=? WHERE discipline.id=?"
+                    );
+            statement.setObject(1,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(2,obj.getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        return true;
     }
 
     @Override
     public Discipline find(int id) {
-        return null;
+        Discipline e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM discipline WHERE discipline.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Discipline(rs.getInt("id"),rs.getString("nom"));               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

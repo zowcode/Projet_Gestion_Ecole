@@ -21,7 +21,10 @@ public class Enseignement {
         this.enseignant = enseignant;
         this.discipline = discipline;
     }
-    
+
+    public Enseignement(int id) {
+        this.id = id;
+    }
     
 
     public int getId() {
@@ -38,6 +41,18 @@ public class Enseignement {
 
     public Discipline getDiscipline() {
         return discipline;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
+    }
+
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
+
+    public void setDiscipline(Discipline discipline) {
+        this.discipline = discipline;
     }
     
     

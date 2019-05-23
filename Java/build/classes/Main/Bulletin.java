@@ -11,24 +11,25 @@ package Main;
  */
 public class Bulletin {
     private int id;
-    private String appreciation;
     private Inscription inscription;
     private Trimestre trimestre;
 
-    public Bulletin(int id, String appreciation, Inscription inscription, Trimestre trimestre) {
+    public Bulletin(int id, Inscription inscription, Trimestre trimestre) {
         this.id = id;
-        this.appreciation = appreciation;
         this.inscription = inscription;
         this.trimestre = trimestre;
     }
+
+    public Bulletin(int id) {
+        this.id = id;
+    }
+    
+    
     
     public int getId() {
         return id;
     }
 
-    public String getAppreciation() {
-        return appreciation;
-    }
 
     public Inscription getInscription() {
         return inscription;
@@ -37,6 +38,16 @@ public class Bulletin {
     public Trimestre getTrimestre() {
         return trimestre;
     }
+
+    public void setInscription(Inscription inscription) {
+        this.inscription = inscription;
+    }
+
+    public void setTrimestre(Trimestre trimestre) {
+        this.trimestre = trimestre;
+    }
+
+
     
     
 }

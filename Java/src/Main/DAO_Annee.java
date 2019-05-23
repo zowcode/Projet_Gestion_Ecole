@@ -23,9 +23,9 @@ public class DAO_Annee extends DAO<Annee>{
     public boolean create(Annee obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO anneescolaire (id) VALUES(?)"
+                    "INSERT INTO anneescolaire (annee) VALUES(?)"
                     );
-            statement.setObject(1,obj.getId(), Types.INTEGER); 
+            statement.setObject(1,obj.getAnnee(), Types.VARCHAR); 
             statement.executeUpdate(); 
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,10 +51,20 @@ public class DAO_Annee extends DAO<Annee>{
 
     @Override
     public boolean update(Annee obj) {
-         return false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE anneescolaire SET id=?,annee=? WHERE anneescolaire.id=?"
+                    );
+            statement.setObject(1,obj.getId(), Types.INTEGER);
+            statement.setObject(2,obj.getAnnee(), Types.VARCHAR);
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 
-    @Override
     public Annee find(int id) {
         Annee e = null;
         try {
@@ -64,7 +74,7 @@ public class DAO_Annee extends DAO<Annee>{
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                e = new Annee(rs.getInt("id"));
+                e = new Annee(rs.getInt("id"),rs.getString("annee"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,4 +100,6 @@ public class DAO_Annee extends DAO<Annee>{
         
         return max_id;
     }
+
+
 }

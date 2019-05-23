@@ -12,11 +12,11 @@ package Main;
 public class Trimestre {
     private int id;
     private int numero;
-    private int debut;
-    private int fin;
+    private String debut;
+    private String fin;
     private Annee annee;
 
-    public Trimestre(int id, int numero, int debut, int fin, Annee annee) {
+    public Trimestre(int id, int numero, String debut, String fin, Annee annee) {
         this.id = id;
         this.numero = numero;
         this.debut = debut;
@@ -24,14 +24,14 @@ public class Trimestre {
         this.annee = annee;
     }
 
-    public Trimestre(int id, int numero, int debut, int fin) {
+    public Trimestre(int id, int numero, String debut, String fin) {
         this.id = id;
         this.numero = numero;
         this.debut = debut;
         this.fin = fin;
     }
 
-    public Trimestre(int numero, int debut, int fin, Annee annee) {
+    public Trimestre(int numero, String debut, String fin, Annee annee) {
         this.numero = numero;
         this.debut = debut;
         this.fin = fin;
@@ -48,11 +48,11 @@ public class Trimestre {
         return numero;
     }
 
-    public int getDebut() {
+    public String getDebut() {
         return debut;
     }
 
-    public int getFin() {
+    public String getFin() {
         return fin;
     }
 

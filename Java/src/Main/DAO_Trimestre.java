@@ -25,7 +25,7 @@ public class DAO_Trimestre extends DAO<Trimestre>{
     
     @Override
     public boolean create(Trimestre obj) {
-                try {
+        try {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO trimestre (numero,debut,fin,id_annee) VALUES(?,?,?,?)"
                     );
@@ -59,7 +59,21 @@ public class DAO_Trimestre extends DAO<Trimestre>{
 
     @Override
     public boolean update(Trimestre obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE trimestre numero=?,debut=?,fin=?,id_annee=? WHERE trimestre.id=?"
+                    );
+            statement.setObject(1,obj.getNumero(),Types.INTEGER);
+            statement.setObject(2,obj.getDebut(), Types.VARCHAR); 
+            statement.setObject(3,obj.getFin(),Types.VARCHAR); 
+            statement.setObject(4,obj.getAnnee().getId(),Types.INTEGER); 
+            statement.setObject(5,obj.getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Trimestre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 
     @Override
@@ -72,7 +86,7 @@ public class DAO_Trimestre extends DAO<Trimestre>{
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                e = new Trimestre(rs.getInt("id"),rs.getInt("numero"),rs.getInt("debut"),rs.getInt("fin"));
+                e = new Trimestre(rs.getInt("id"),rs.getInt("numero"),rs.getString("debut"),rs.getString("fin"));
                 DAO_Annee anDAO = new DAO_Annee(this.connect);
                 e.setAnnee(anDAO.find(rs.getInt("id_annee")));
             }

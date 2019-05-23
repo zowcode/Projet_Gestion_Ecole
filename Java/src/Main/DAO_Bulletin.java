@@ -27,11 +27,10 @@ public class DAO_Bulletin extends DAO<Bulletin> {
     public boolean create(Bulletin obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO bulletin (appreciation,id_inscription,id_trimestre) VALUES(?,?,?)"
+                    "INSERT INTO bulletin (id_inscription,id_trimestre) VALUES(?,?,?)"
                     );
-            statement.setObject(1,obj.getAppreciation(),Types.VARCHAR); 
-            statement.setObject(2,obj.getInscription().getId(),Types.INTEGER);
-            statement.setObject(3,obj.getTrimestre().getId(),Types.INTEGER); 
+            statement.setObject(1,obj.getInscription().getId(),Types.INTEGER);
+            statement.setObject(2,obj.getTrimestre().getId(),Types.INTEGER); 
             statement.executeUpdate(); 
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Bulletin.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +56,20 @@ public class DAO_Bulletin extends DAO<Bulletin> {
 
     @Override
     public boolean update(Bulletin obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE bulletin SET id_inscription=?,id_trimestre=? WHERE bulletin.id=?"
+                    );
+            statement.setObject(1,obj.getInscription().getId(),Types.INTEGER);
+            statement.setObject(2,obj.getTrimestre().getId(),Types.INTEGER); 
+            statement.setObject(3,obj.getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Bulletin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        return true;
     }
 
     @Override
@@ -70,7 +82,7 @@ public class DAO_Bulletin extends DAO<Bulletin> {
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                e = new Bulletin(rs.getInt("id"),rs.getString("appreciation"));
+                e = new Bulletin(rs.getInt("id"));
                 DAO_Inscription inscriDAO = new DAO_Inscription(this.connect);
                 DAO_Trimestre trimDAO = new DAO_Trimestre(this.connect);
                 e.setInscription(inscriDAO.find(rs.getInt("id_inscription")));

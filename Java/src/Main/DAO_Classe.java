@@ -58,7 +58,20 @@ public class DAO_Classe extends DAO<Classe>{
 
     @Override
     public boolean update(Classe obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE classe SET nom=?,id_niveau=?,id_annee=? WHERE classe.id=?"
+                    ); 
+            statement.setObject(1,obj.getNom(),Types.VARCHAR); 
+            statement.setObject(2,obj.getNiveau().getId(),Types.INTEGER);
+            statement.setObject(3,obj.getAnnee().getId(),Types.INTEGER); 
+            statement.setObject(4,obj.getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Classe.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        return true;
     }
 
     @Override
@@ -71,7 +84,7 @@ public class DAO_Classe extends DAO<Classe>{
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                e = new Classe(rs.getInt("id"),rs.getString("appreciation"));
+                e = new Classe(rs.getInt("id"),rs.getString("nom"));
                 DAO_Niveau nivDAO = new DAO_Niveau(this.connect);
                 DAO_Annee anDAO = new DAO_Annee(this.connect);
                 e.setNiveau(nivDAO.find(rs.getInt("id_niveau")));

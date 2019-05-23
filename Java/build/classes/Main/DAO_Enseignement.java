@@ -57,12 +57,45 @@ public class DAO_Enseignement extends DAO<Enseignement>{
 
     @Override
     public boolean update(Enseignement obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE enseignement SET id_classe=?,id_enseignant=?,id_discipline=? WHERE enseignement.id=?"
+                    );
+            statement.setObject(1,obj.getClasse().getId(),Types.INTEGER); 
+            statement.setObject(2,obj.getEnseignant().getId(),Types.INTEGER);
+            statement.setObject(3,obj.getDiscipline().getId(),Types.INTEGER); 
+            statement.setObject(4,obj.getId(),Types.INTEGER); 
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Enseignement.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        return true;
     }
 
     @Override
     public Enseignement find(int id) {
-        return null;
+        Enseignement e = null;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM enseignement WHERE enseignement.id="+id
+                    );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                e = new Enseignement(rs.getInt("id"));
+                DAO_Classe classDAO = new DAO_Classe(this.connect);
+                DAO_Enseignant enDAO = new DAO_Enseignant(this.connect);
+                DAO_Discipline disDAO = new DAO_Discipline(this.connect);
+                e.setClasse(classDAO.find(rs.getInt("id_classe")));
+                e.setEnseignant(enDAO.find(rs.getInt("id_enseignant")));
+                e.setDiscipline(disDAO.find(rs.getInt("id_discipline")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Enseignement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
     }
     
         @Override

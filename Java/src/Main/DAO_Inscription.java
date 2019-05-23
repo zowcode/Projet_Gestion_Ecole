@@ -56,8 +56,21 @@ public class DAO_Inscription extends DAO<Inscription>{
 
     @Override
     public boolean update(Inscription obj) {
-         return false;
+         try {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE inscription SET id_eleve=?,id_classe=? WHERE inscription.id=?"
+                    );
+            statement.setObject(1,obj.getEleve().getId(),Types.INTEGER); 
+            statement.setObject(2,obj.getClasse().getId(),Types.INTEGER);
+            statement.setObject(3,obj.getId(),Types.INTEGER);
+            statement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Inscription.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
     }
+    
 
     @Override
     public Inscription find(int id) {

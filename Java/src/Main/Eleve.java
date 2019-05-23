@@ -20,6 +20,14 @@ public class Eleve {
         this.nom = nom;
         this.prenom = prenom;
     }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
     
     
     

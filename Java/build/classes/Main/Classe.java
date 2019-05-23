@@ -21,6 +21,11 @@ public class Classe {
         this.niveau = niveau;
         this.annee = annee;
     }
+
+    public Classe(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
     
     
 
@@ -38,6 +43,14 @@ public class Classe {
 
     public Annee getAnnee() {
         return annee;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+
+    public void setAnnee(Annee annee) {
+        this.annee = annee;
     }
     
     
