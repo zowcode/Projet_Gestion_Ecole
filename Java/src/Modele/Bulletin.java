@@ -5,6 +5,8 @@
  */
 package Modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author arnau
@@ -13,6 +15,7 @@ public class Bulletin {
     private int id;
     private Inscription inscription;
     private Trimestre trimestre;
+    private ArrayList<Evaluation> evaluations = new ArrayList();
 
     public Bulletin(int id, Inscription inscription, Trimestre trimestre) {
         this.id = id;
@@ -22,6 +25,14 @@ public class Bulletin {
 
     public Bulletin(int id) {
         this.id = id;
+    }
+
+    public ArrayList<Evaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(ArrayList<Evaluation> evaluations) {
+        this.evaluations = evaluations;
     }
     
     

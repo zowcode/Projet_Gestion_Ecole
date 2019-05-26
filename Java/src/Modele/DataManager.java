@@ -42,6 +42,8 @@ public class DataManager {
         Load_Inscription();
         Load_Niveau();
         Load_Trimestre();
+        Set_Data_Classes();
+        Set_Data_Bulletins();
     }
     
     public void Save_All_Data()
@@ -340,6 +342,58 @@ public class DataManager {
         return trimestres;
     }
     
+    public void Set_Data_Bulletins()
+    {
+        for(Entry<Integer,Bulletin> bull : bulletins.entrySet())
+        {
+            Bulletin b = bull.getValue();
+            Inscription i = b.getInscription();
+            Eleve e = eleves.get(i.getEleve().getId());
+            e.getBulletins().add(b);
+            for(Entry<Integer,Evaluation> eval : evaluations.entrySet())
+            {
+                Evaluation ev = eval.getValue();
+                if(b.getId()==ev.getBulletin().getId())
+                {
+                    b.getEvaluations().add(ev);
+                    
+                }
+            }
+        }
+    }
     
+    public void Set_Data_Classes()
+    {
+        for(Entry<Integer,Inscription> inscri : inscriptions.entrySet())
+        {
+            Inscription i = inscri.getValue();
+            Classe c = classes.get(i.getClasse().getId());
+            Eleve e = eleves.get(i.getEleve().getId());
+            c.getEleves().add(e);
+            e.setClasse(c);
+        }
+        
+        for(Entry<Integer,Enseignement> enseignement : enseignements.entrySet())
+        {
+            Enseignement m = enseignement.getValue();
+            Classe c = classes.get(m.getClasse().getId());
+            Enseignant p = enseignants.get(m.getEnseignant().getId());
+            Discipline d = disciplines.get(m.getDiscipline().getId());
+            if(!c.getEnseignants().contains(p))
+            {
+                c.getEnseignants().add(p);
+            }
+            if(!p.getClasses().contains(c))
+            {
+                p.getClasses().add(c);
+            }
+            
+            if(!p.getDisciplines().contains(d))
+            {
+                p.getDisciplines().add(d);
+            }
+                
+        }
+    }
     
 }

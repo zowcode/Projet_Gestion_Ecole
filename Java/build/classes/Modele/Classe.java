@@ -5,6 +5,8 @@
  */
 package Modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author arnau
@@ -14,6 +16,8 @@ public class Classe {
     private String nom;
     private Niveau niveau;
     private Annee annee;
+    private ArrayList<Eleve> eleves = new ArrayList();
+    private ArrayList<Enseignant> enseignants = new ArrayList();
 
     public Classe(int id, String nom, Niveau niveau, Annee annee) {
         this.id = id;
@@ -51,6 +55,22 @@ public class Classe {
 
     public void setAnnee(Annee annee) {
         this.annee = annee;
+    }
+
+    public ArrayList<Eleve> getEleves() {
+        return eleves;
+    }
+
+    public void setEleves(ArrayList<Eleve> eleves) {
+        this.eleves = eleves;
+    }
+
+    public ArrayList<Enseignant> getEnseignants() {
+        return enseignants;
+    }
+
+    public void setEnseignants(ArrayList<Enseignant> enseignants) {
+        this.enseignants = enseignants;
     }
     
     

@@ -8,18 +8,18 @@ import java.util.Map.Entry;
  *
  * @author arnau
  */
-public class TestsConsole {
+public class Vue_Console {
     private static DataManager db=new DataManager();
     
     public static void main(String[] args) { 
         db.Load_All_Data();
         
-        System.out.println("Années :");
+        /*System.out.println("Années :");
         for(Entry<Integer,Annee> elem : db.getAnnees().entrySet())
         {
             Display_Annee(elem.getValue());
             System.out.println();
-        }
+        }*/
         
         System.out.println("Bulletins :");
         for(Entry<Integer,Bulletin> elem : db.getBulletins().entrySet())
@@ -35,12 +35,12 @@ public class TestsConsole {
             System.out.println();
         }
         
-        System.out.println("Disciplines :");
+        /*System.out.println("Disciplines :");
         for(Entry<Integer,Discipline> elem : db.getDisciplines().entrySet())
         {
             Display_Discipline(elem.getValue());
             System.out.println();
-        }
+        }*/
         
         System.out.println("Eleves :");
         for(Entry<Integer,Eleve> elem : db.getEleves().entrySet())
@@ -49,14 +49,14 @@ public class TestsConsole {
             System.out.println();
         }
         
-        System.out.println("Enseignant :");
+        System.out.println("Enseignants :");
         for(Entry<Integer,Enseignant > elem : db.getEnseignants().entrySet())
         {
             Display_Enseignant (elem.getValue());
             System.out.println();
         }
         
-        System.out.println("Enseignements :");
+        /*System.out.println("Enseignements :");
         for(Entry<Integer,Enseignement> elem : db.getEnseignements().entrySet())
         {
             Display_Enseignement(elem.getValue());
@@ -70,7 +70,7 @@ public class TestsConsole {
             System.out.println();
         }
         
-        System.out.println("Inscriptions :");
+        /*System.out.println("Inscriptions :");
         for(Entry<Integer,Inscription> elem : db.getInscriptions().entrySet())
         {
             Display_Inscription(elem.getValue());
@@ -89,7 +89,7 @@ public class TestsConsole {
         {
             Display_Trimestre(elem.getValue());
             System.out.println();
-        }
+        }*/
     }
     
     public static void Display_Annee(Annee annee)
@@ -101,6 +101,11 @@ public class TestsConsole {
     {
         Display_Inscription(db.getInscriptions().get(bulletin.getInscription().getId()));
         Display_Trimestre(db.getTrimestres().get(bulletin.getTrimestre().getId()));
+        System.out.println("Evaluations:");
+        for(Evaluation e : bulletin.getEvaluations())
+        {
+            Display_Evaluation(e);
+        }
     }
     
     public static void Display_Classe(Classe classe)
@@ -108,6 +113,16 @@ public class TestsConsole {
         System.out.print(classe.getNom()+" ");
         Display_Niveau(db.getNiveaux().get(classe.getNiveau().getId()));
         Display_Annee(db.getAnnees().get(classe.getAnnee().getId()));
+        System.out.println("Liste des élèves :");
+        for(Eleve e : classe.getEleves())
+        {
+            Display_Eleve(e);
+        }
+        System.out.println("Liste des enseignants :");
+        for(Enseignant e : classe.getEnseignants())
+        {
+            Display_Enseignant(e);
+        }
     }
     
     public static void Display_Discipline(Discipline discipline)
@@ -123,6 +138,11 @@ public class TestsConsole {
     public  static void Display_Enseignant(Enseignant enseignant)
     {
         System.out.println(enseignant.getPrenom()+" "+enseignant.getNom());
+        System.out.println("Matières enseignées:");
+        for(Discipline d : enseignant.getDisciplines())
+        {
+            Display_Discipline(d);
+        }
     }
     
     public static void Display_Enseignement(Enseignement enseignement)
