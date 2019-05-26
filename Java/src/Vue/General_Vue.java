@@ -5,12 +5,10 @@
  */
 package Vue;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author arnau
  */
-public class Vue_Admin extends General_Vue{
+public class General_Vue {
     
 }

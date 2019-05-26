@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controleur;
+package DAO_Package;
 
 import Modele.Evaluation;
 import java.sql.Connection;
@@ -81,7 +81,7 @@ public class DAO_Evaluation extends DAO<Evaluation>{
         Evaluation e = null;
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM evalation WHERE evaluation.id="+id
+                    "SELECT * FROM evaluation WHERE evaluation.id="+id
                     );
             ResultSet rs = statement.executeQuery();
             while (rs.next())

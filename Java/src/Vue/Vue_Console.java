@@ -105,6 +105,7 @@ public class Vue_Console {
         for(Evaluation e : bulletin.getEvaluations())
         {
             Display_Evaluation(e);
+            System.out.println();
         }
     }
     
@@ -154,16 +155,16 @@ public class Vue_Console {
     
     public static void Display_Evaluation(Evaluation evaluation)
     {
+        Display_Enseignant(db.getEnseignants().get(evaluation.getEnseignant().getId()));   
         System.out.println(evaluation.getNote()+"/20");
-        System.out.println(evaluation.getAppreciation());
-        Display_Bulletin(db.getBulletins().get(evaluation.getBulletin().getId()));
-        Display_Enseignant(db.getEnseignants().get(evaluation.getEnseignant().getId()));        
+        System.out.println(evaluation.getAppreciation());    
     }
     
     public static void Display_Inscription(Inscription inscription)
     {
         Display_Eleve(db.getEleves().get(inscription.getEleve().getId()));
-        Display_Classe(db.getClasses().get(inscription.getClasse().getId()));
+        Classe c = inscription.getClasse();
+        System.out.println(c.getNom()+" "+c.getNiveau().getNom());
     }
     
     public static void Display_Niveau(Niveau niveau)

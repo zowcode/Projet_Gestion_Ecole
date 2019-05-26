@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controleur;
+package DAO_Package;
 
-import Modele.Discipline;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import Modele.Annee;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,22 +14,22 @@ import java.util.logging.Logger;
  *
  * @author arnau
  */
-public class DAO_Discipline extends DAO<Discipline>{
-    
-    public DAO_Discipline(Connection conn) {
+public class DAO_Annee extends DAO<Annee>{
+      
+    public DAO_Annee(Connection conn) {
         super(conn);
     }
     
     @Override
-    public boolean create(Discipline obj) {
+    public boolean create(Annee obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO discipline (nom) VALUES(?)"
+                    "INSERT INTO anneescolaire (annee) VALUES(?)"
                     );
-            statement.setObject(1,obj.getNom(),Types.VARCHAR);  
+            statement.setObject(1,obj.getAnnee(), Types.VARCHAR); 
             statement.executeUpdate(); 
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
         }
         //en spécifiant bien les types SQL cibles 
         
@@ -41,49 +37,48 @@ public class DAO_Discipline extends DAO<Discipline>{
     }
 
     @Override
-    public boolean delete(Discipline obj) {
+    public boolean delete(Annee obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM discipline WHERE discipline.id="+obj.getId()
+                    "DELETE FROM anneescolaire WHERE anneescolaire.id="+obj.getId()
                     );
             statement.executeUpdate(); 
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return true;
     }
 
     @Override
-    public boolean update(Discipline obj) {
+    public boolean update(Annee obj) {
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE discipline SET nom=? WHERE discipline.id=?"
+                    "UPDATE anneescolaire SET id=?,annee=? WHERE anneescolaire.id=?"
                     );
-            statement.setObject(1,obj.getNom(),Types.VARCHAR); 
-            statement.setObject(2,obj.getId(),Types.INTEGER); 
+            statement.setObject(1,obj.getId(), Types.INTEGER);
+            statement.setObject(2,obj.getAnnee(), Types.VARCHAR);
             statement.executeUpdate(); 
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return true;
     }
 
-    @Override
-    public Discipline find(int id) {
-        Discipline e = null;
+    public Annee find(int id) {
+        Annee e = null;
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM discipline WHERE discipline.id="+id
+                    "SELECT * FROM anneescolaire WHERE anneescolaire.id="+id
                     );
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                e = new Discipline(rs.getInt("id"),rs.getString("nom"));               
+                e = new Annee(rs.getInt("id"),rs.getString("annee"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return e;
@@ -95,15 +90,17 @@ public class DAO_Discipline extends DAO<Discipline>{
         try {
              ResultSet result = this.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
-                ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT MAX(id) FROM discipline");
+                ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT MAX(id) FROM anneescolaire");
              if(result.first())
              {
                  max_id = result.getInt("MAX(id)");
              }
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Discipline.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Annee.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return max_id;
     }
+
+
 }

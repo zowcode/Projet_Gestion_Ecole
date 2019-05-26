@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vue;
+package Controleur;
 
-import javax.swing.JFrame;
+import Modele.CurrentUser;
 
 /**
  *
  * @author arnau
  */
-public class Vue_Admin extends General_Vue{
+public class EleveControler extends GeneralControler{
+
+    public EleveControler(CurrentUser user) {
+        super(user);
+    }
     
 }

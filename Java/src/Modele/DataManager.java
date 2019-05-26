@@ -1,7 +1,7 @@
 package Modele;
 
-import Controleur.DAO;
-import Controleur.DAOFactory;
+import DAO_Package.DAO;
+import DAO_Package.DAOFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
