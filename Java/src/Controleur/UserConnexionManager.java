@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author arnaud
  */
-public class Connexion {
+public class UserConnexionManager {
         protected static final Connection conn; 
         
    
@@ -27,51 +27,49 @@ public class Connexion {
             Class.forName("com.mysql.jdbc.Driver");
             tmp = DriverManager.getConnection("jdbc:mysql://localhost/connexion","root","root");
          }catch (ClassNotFoundException ex) {
-                Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserConnexionManager.class.getName()).log(Level.SEVERE, null, ex);
          }catch (SQLException ex) {
-            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserConnexionManager.class.getName()).log(Level.SEVERE, null, ex);
          }
         conn = tmp;
     }
 
-    public Connexion() {
+    public UserConnexionManager() {
     }
     
     
     
-    public static void Create_Frame(String email,String password) throws SQLException {
+    public static boolean Create_Frame(String email,String password) throws SQLException {
         
         CurrentUser u = Connect(email,password);
-        System.out.println(u.getType());
-        switch(u.getType())
+        if(u!=null)
+        {
+            switch(u.getType())
         {
             case 0:
                 Vue_Eleve el = new Vue_Eleve(u);
-                //fermer la fenetre actuelle
-                break;
+                return true;
             case 1:
                 Vue_Enseignant en = new Vue_Enseignant(u);
-                break;
+                return true;
             case 2:
                 Vue_Admin ad = new Vue_Admin(u);
-                break;
-            default :
-                
-                break;
-                
+                return true;         
         }
+        }
+        return false;
+        
     }
     
     public static CurrentUser Connect(String email,String password) throws SQLException
     {
         String email_modif = "\'"+email+"\'";
-        PreparedStatement statement = Connexion.conn.prepareStatement(
+        PreparedStatement statement = UserConnexionManager.conn.prepareStatement(
                    "SELECT * FROM user WHERE user.email = "+email_modif
                     );
         ResultSet rs = statement.executeQuery();
             if(rs.first())
             {
-                System.out.println("rs");
                 if(rs.getString("email").equals(email) && rs.getString("password").equals(password))
                 {
                     return new CurrentUser(email,rs.getInt("type"),rs.getString("nom"),rs.getString("prenom"));

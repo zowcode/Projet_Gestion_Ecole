@@ -5,7 +5,8 @@
  */
 package Vue;
 
-import Controleur.Connexion;
+import Controleur.UserConnexionManager;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,7 @@ public class Vue_Connexion extends JFrame implements ActionListener{
     private JPanel logo;
     private JPanel form;
     private JButton send_btn;
-    private Connexion connect;
+    private UserConnexionManager connect;
     private JTextField champ_email;
     private JPasswordField champ_mdp;
     
@@ -33,11 +34,11 @@ public class Vue_Connexion extends JFrame implements ActionListener{
     public Vue_Connexion()
     {
         super("Connexion");
-        connect = new Connexion();
+        connect = new UserConnexionManager();
         int height = 600;
         int width = 800;
         this.setSize(width,height);
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -69,8 +70,8 @@ public class Vue_Connexion extends JFrame implements ActionListener{
         form.add(send_btn);
         
         
-        this.getContentPane().add(logo);
-        this.getContentPane().add(form);
+        this.getContentPane().add(logo,BorderLayout.NORTH);
+        this.getContentPane().add(form,BorderLayout.CENTER);
         this.setVisible(true);
     }
     
@@ -79,8 +80,16 @@ public class Vue_Connexion extends JFrame implements ActionListener{
         if(event.getSource() == send_btn)
         {
             try {
-                connect.Create_Frame(champ_email.getText(),champ_mdp.getText());
-                this.setVisible(false);
+                if(connect.Create_Frame(champ_email.getText(),champ_mdp.getText()))
+                {
+                    this.setVisible(false);
+                }else
+                {
+                    champ_email.setText("");
+                    champ_mdp.setText("");
+                    JOptionPane.showMessageDialog(this, "Adresse email ou mot de passe incorrect", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+               
             } catch (SQLException ex) {
                 Logger.getLogger(Vue_Connexion.class.getName()).log(Level.SEVERE, null, ex);
             }
