@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 /**
  *
- * @author arnau
+ * @author arnaud
  */
 public class DataManager {
     private Map<Integer,Annee> annees = new HashMap<Integer,Annee>();

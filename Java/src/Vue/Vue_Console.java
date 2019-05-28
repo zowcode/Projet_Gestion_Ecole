@@ -13,6 +13,7 @@ public class Vue_Console {
     
     public static void main(String[] args) { 
         db.Load_All_Data();
+        Vue_Connexion vc = new Vue_Connexion();
         
         /*System.out.println("Années :");
         for(Entry<Integer,Annee> elem : db.getAnnees().entrySet())
