@@ -1,5 +1,7 @@
 
 package Vue;
+import DAO_Package.DAO;
+import DAO_Package.DAOFactory;
 import Modele.*;
 import java.util.Map.Entry;
 
@@ -13,14 +15,24 @@ public class Vue_Console {
     
     public static void main(String[] args) { 
         db.Load_All_Data();
-        Vue_Connexion vc = new Vue_Connexion();
+        Vue_Connexion vc = new Vue_Connexion(db);
+        
+        System.out.println("Eleves :");
+        for(Entry<Integer,Eleve> elem : db.getEleves().entrySet())
+        {
+            Display_Eleve(elem.getValue());
+            System.out.println();
+        }
+        
+        
+        
         
         /*System.out.println("Années :");
         for(Entry<Integer,Annee> elem : db.getAnnees().entrySet())
         {
             Display_Annee(elem.getValue());
             System.out.println();
-        }*/
+        }
         
         System.out.println("Bulletins :");
         for(Entry<Integer,Bulletin> elem : db.getBulletins().entrySet())
@@ -36,12 +48,12 @@ public class Vue_Console {
             System.out.println();
         }
         
-        /*System.out.println("Disciplines :");
+        System.out.println("Disciplines :");
         for(Entry<Integer,Discipline> elem : db.getDisciplines().entrySet())
         {
             Display_Discipline(elem.getValue());
             System.out.println();
-        }*/
+        }
         
         System.out.println("Eleves :");
         for(Entry<Integer,Eleve> elem : db.getEleves().entrySet())
@@ -57,7 +69,7 @@ public class Vue_Console {
             System.out.println();
         }
         
-        /*System.out.println("Enseignements :");
+        System.out.println("Enseignements :");
         for(Entry<Integer,Enseignement> elem : db.getEnseignements().entrySet())
         {
             Display_Enseignement(elem.getValue());
@@ -71,7 +83,7 @@ public class Vue_Console {
             System.out.println();
         }
         
-        /*System.out.println("Inscriptions :");
+        System.out.println("Inscriptions :");
         for(Entry<Integer,Inscription> elem : db.getInscriptions().entrySet())
         {
             Display_Inscription(elem.getValue());
@@ -135,6 +147,7 @@ public class Vue_Console {
     public static void Display_Eleve(Eleve eleve)
     {
         System.out.println(eleve.getPrenom()+" "+eleve.getNom());
+        //Display_Classe(eleve.getClasse());
     }
     
     public  static void Display_Enseignant(Enseignant enseignant)

@@ -1,6 +1,7 @@
 package Vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import static javax.swing.BoxLayout.Y_AXIS;
@@ -30,6 +31,7 @@ public class UserInfoPanel extends JPanel{
        this.add(email_label);
        this.add(type_label);
        this.add(deco_btn);
+       this.setBorder(BorderFactory.createLineBorder(new Color(0,113,121)));
     }
 
     public JButton getDeco_btn() {

@@ -6,6 +6,7 @@
 package Vue;
 
 import Controleur.UserConnexionManager;
+import Modele.DataManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,13 +29,14 @@ public class Vue_Connexion extends JFrame implements ActionListener{
     private UserConnexionManager connect;
     private JTextField champ_email;
     private JPasswordField champ_mdp;
+    private DataManager db;
+   
     
-
-    
-    public Vue_Connexion()
+    public Vue_Connexion(DataManager db)
     {
         super("Connexion");
-        connect = new UserConnexionManager();
+        this.db = db;
+        connect = new UserConnexionManager(this.db);
         int height = 600;
         int width = 800;
         this.setSize(width,height);
@@ -42,7 +44,7 @@ public class Vue_Connexion extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        ImageIcon img = new ImageIcon("logo.jpg");
+        ImageIcon img = new ImageIcon("logo_connexion.jpg");
         JLabel logo_label = new JLabel(img);
         
         logo = new JPanel();

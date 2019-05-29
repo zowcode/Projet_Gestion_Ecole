@@ -2,6 +2,7 @@ package Controleur;
 
 import DAO_Package.DAOFactory;
 import Modele.CurrentUser;
+import Modele.DataManager;
 import Vue.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class UserConnexionManager {
         protected static final Connection conn; 
-        
+        protected static DataManager db;
    
     static{
         Connection tmp = null;
@@ -34,7 +35,8 @@ public class UserConnexionManager {
         conn = tmp;
     }
 
-    public UserConnexionManager() {
+    public UserConnexionManager(DataManager db) {
+        this.db = db;
     }
     
     
@@ -47,13 +49,13 @@ public class UserConnexionManager {
             switch(u.getType())
         {
             case 0:
-                Vue_Eleve el = new Vue_Eleve(u);
+                Vue_Eleve el = new Vue_Eleve(db,u);
                 return true;
             case 1:
-                Vue_Enseignant en = new Vue_Enseignant(u);
+                Vue_Enseignant en = new Vue_Enseignant(db,u);
                 return true;
             case 2:
-                Vue_Admin ad = new Vue_Admin(u);
+                Vue_Admin ad = new Vue_Admin(db,u);
                 return true;         
         }
         }
@@ -72,7 +74,7 @@ public class UserConnexionManager {
             {
                 if(rs.getString("email").equals(email) && rs.getString("password").equals(password))
                 {
-                    return new CurrentUser(email,rs.getInt("type"),rs.getString("nom"),rs.getString("prenom"));
+                    return new CurrentUser(email,rs.getInt("type"),rs.getString("nom"),rs.getString("prenom"),rs.getInt("id"));
                 }
             }
         return null;
