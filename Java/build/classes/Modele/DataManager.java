@@ -392,6 +392,11 @@ public class DataManager {
             {
                 p.getDisciplines().add(d);
             }
+            
+            if(!c.getDisciplines().contains(d))
+            {
+                c.getDisciplines().add(d);
+            }
                 
         }
     }

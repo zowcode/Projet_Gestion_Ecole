@@ -58,7 +58,7 @@ public class Vue_Generale extends JFrame implements ActionListener{
         BandeauHorizontal.add(uip,BorderLayout.EAST);
         
         BandeauVertical = new JPanel();
-        BandeauVertical.setPreferredSize(new Dimension(150, 25));
+        BandeauVertical.setPreferredSize(new Dimension(250, 250));
         BandeauVertical.setBorder(BorderFactory.createLineBorder(Color.black));
         this.getContentPane().add(BandeauVertical, BorderLayout.WEST);
         

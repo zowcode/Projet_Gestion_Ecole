@@ -24,10 +24,12 @@ public class Classe_Panel extends JPanel{
         this.setLayout(new BoxLayout(this,Y_AXIS));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         
+        
         JLabel intitule = new JLabel(classe.getNom() + " " + classe.getNiveau().getNom()+ " " + classe.getAnnee().getAnnee());
         this.add(intitule);
 
-        JLabel profs = new JLabel("Liste des professeurs :");
+        //JPanel profs = new JPanel();
+        JLabel profs = new JLabel("Liste des enseignants :");
         this.add(profs);
         for(Enseignant e : classe.getEnseignants())
         {

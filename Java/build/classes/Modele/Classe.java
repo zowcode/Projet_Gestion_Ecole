@@ -18,6 +18,7 @@ public class Classe {
     private Annee annee;
     private ArrayList<Eleve> eleves = new ArrayList();
     private ArrayList<Enseignant> enseignants = new ArrayList();
+    public ArrayList<Discipline> disciplines = new ArrayList();
 
     public Classe(int id, String nom, Niveau niveau, Annee annee) {
         this.id = id;
@@ -72,6 +73,11 @@ public class Classe {
     public void setEnseignants(ArrayList<Enseignant> enseignants) {
         this.enseignants = enseignants;
     }
+
+    public ArrayList<Discipline> getDisciplines() {
+        return disciplines;
+    }
+    
     
     
 }

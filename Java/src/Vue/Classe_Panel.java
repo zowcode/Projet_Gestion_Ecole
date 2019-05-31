@@ -28,8 +28,8 @@ public class Classe_Panel extends JPanel{
         JLabel intitule = new JLabel(classe.getNom() + " " + classe.getNiveau().getNom()+ " " + classe.getAnnee().getAnnee());
         this.add(intitule);
 
-        JPanel profs = new JPanel();
-        
+        //JPanel profs = new JPanel();
+        JLabel profs = new JLabel("Liste des enseignants :");
         this.add(profs);
         for(Enseignant e : classe.getEnseignants())
         {
