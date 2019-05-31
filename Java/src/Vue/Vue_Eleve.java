@@ -70,7 +70,6 @@ public class Vue_Eleve extends Vue_Generale implements TreeSelectionListener{
        if(obj.toString().equals("Ma Classe"))
        {   
            MainContent.add(new Classe_Panel(eleve.getClasse()),BorderLayout.CENTER);
-           System.out.println("Noeud");
        }
        
        char char_id = tree.getLastSelectedPathComponent().toString().charAt(0);
